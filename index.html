@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>April & The AristoCats</title>
+    <style>
+        body { font-family: sans-serif; background-color: #1e1e2e; color: #cdd6f4; max-width: 600px; margin: 40px auto; padding: 20px; }
+        button { display: block; width: 100%; padding: 15px; margin-bottom: 10px; background-color: #89b4fa; color: #11111b; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #74c7ec; }
+    </style>
+</head>
+<body>
+    
+    <div id="story-text">
+        <!-- The JavaScript will inject the story here -->
+    </div>
+    
+    <div id="choices">
+        <!-- The JavaScript will inject the buttons here -->
+    </div>
+
+    <script>
+        const storyData = {
+            "start": {
+                title: "The Watchtower Helm",
+                text: "You are at the helm of your towering tiny home. A rogue semicolon in your Python script just ripped a hole in space-time directly above your desk. Khaleesi and ZZ are staring at you, expecting a fix.",
+                choices: [
+                    { buttonText: "Reroute power to the mainframe", nextScene: "mainframe" },
+                    { buttonText: "Ask the cats for advice", nextScene: "cat_advice" }
+                ]
+            },
+            "mainframe": {
+                title: "Power Surge",
+                text: "Sparks fly! The gravity well stabilizes, but your espresso machine blows a fuse. The main console flashes a warning: TEMPORAL LEAK DETECTED.",
+                choices: [
+                    { buttonText: "Run diagnostic script", nextScene: "diagnostic" },
+                    { buttonText: "Smack the console", nextScene: "smack" }
+                ]
+            },
+            "cat_advice": {
+                title: "Feline Intervention",
+                text: "ZZ casually knocks a vital flash drive off the desk and into the gravity well. Khaleesi yawns. The tear in space-time grows larger.",
+                choices: [
+                    { buttonText: "Dive for the flash drive", nextScene: "dive" },
+                    { buttonText: "Activate emergency shields", nextScene: "shields" }
+                ]
+            },
+            "dive": { 
+                title: "Into the Void", 
+                text: "You dive headfirst into the localized gravity well. Instantly, gravity inverts. You are floating in a swirling vortex of glowing green Python code and stardust. Just ahead of you, spinning slowly, is the vital flash drive—and right next to it, manifesting as a glowing, jagged chunk of dark matter, is the rogue semicolon that caused all of this. ZZ peers over the edge of the desk looking down at you, completely unbothered.", 
+                choices: [
+                    { buttonText: "Grab the flash drive and execute the backup script mid-air", nextScene: "midair_hack" },
+                    { buttonText: "Grab the physical semicolon with your bare hands", nextScene: "grab_semicolon" }
+                ] 
+            },
+            // THE NEW SHIELDS SCENE
+            "shields": { 
+                title: "Shields Engaged!", 
+                text: "You slam your palm onto the emergency shield button. A glowing blue hexagonal energy field snaps into existence, completely encasing your desk. The good news? The space-time tear is contained. The bad news? Khaleesi was still on the desk. She is now trapped inside the anomaly bubble with the swirling void, looking mildly annoyed as her orange fur defies gravity. Meanwhile, the vital flash drive is bouncing harmlessly off the outside of the shield.", 
+                choices: [
+                    { buttonText: "Drop the shields to rescue Khaleesi (Risking the tear expanding)", nextScene: "drop_shields" },
+                    { buttonText: "Write a Python bypass to phase the flash drive through the barrier", nextScene: "bypass_script" }
+                ] 
+            },
+            
+            // Placeholders
+            "diagnostic": { title: "Work in Progress", text: "You run the script...", choices: [] },
+            "smack": { title: "Work in Progress", text: "Percussive maintenance...", choices: [] },
+            "midair_hack": { title: "Mid-Air Debugging", text: "You type furiously in zero gravity...", choices: [] },
+            "grab_semicolon": { title: "Syntax Extraction", text: "It burns with the fire of a thousand syntax errors...", choices: [] },
+            "drop_shields": { title: "Work in Progress", text: "Shields coming down...", choices: [] },
+            "bypass_script": { title: "Work in Progress", text: "You start coding a phase-shift array...", choices: [] }
+        };
+
+        function loadScene(sceneId) {
+            const scene = storyData[sceneId];
+            
+            document.getElementById('story-text').innerHTML = `<h2>${scene.title}</h2><p>${scene.text}</p>`;
+            
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = ""; 
+            
+            scene.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.innerText = choice.buttonText;
+                btn.onclick = () => loadScene(choice.nextScene);
+                choicesDiv.appendChild(btn);
+            });
+        }
+
+        loadScene("start");
+    </script>
+</body>
+</html>
